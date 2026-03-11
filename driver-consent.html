@@ -59,8 +59,102 @@
         .consent-card a:hover {
             color: var(--accent-cyan);
         }
+        .consent-flow {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0 8px;
+        }
+        .consent-flow-step {
+            flex: 1;
+            padding: 16px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+        .consent-flow-step .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: rgba(59,130,246,0.1);
+            border: 1px solid rgba(59,130,246,0.3);
+            color: var(--accent-blue);
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .consent-flow-step .step-text {
+            display: block;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+        .consent-mockup {
+            margin: 24px 0;
+            padding: 24px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+        }
+        .consent-mockup h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .consent-mockup .mockup-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .mockup-phone {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            font-size: 0.9375rem;
+            font-family: var(--font-sans);
+            margin-bottom: 16px;
+        }
+        .mockup-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: default;
+        }
+        .mockup-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 3px;
+            accent-color: var(--accent-blue);
+            flex-shrink: 0;
+        }
+        .mockup-checkbox label {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .consent-sms-example {
+            margin: 16px 0;
+            padding: 16px;
+            background: var(--bg-elevated);
+            border-left: 3px solid var(--accent-blue);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            line-height: 1.7;
+        }
         @media (max-width: 768px) {
             .consent-card { padding: 28px 20px; }
+            .consent-flow { flex-direction: column; }
         }
     </style>
 </head>
@@ -90,8 +184,50 @@
                 <h1>Driver SMS Consent</h1>
                 <p class="consent-updated">Last updated: March 11, 2026</p>
 
+                <h2>How Drivers Opt In</h2>
+                <p>Drivers opt in to receive SMS notifications by confirming their phone number and accepting SMS consent during the Compliance Nation driver onboarding process after receiving an invitation from their motor carrier.</p>
+                <p>SMS messages are used solely for compliance notifications related to DOT drug and alcohol testing programs and account alerts.</p>
+
+                <div class="consent-flow">
+                    <div class="consent-flow-step">
+                        <span class="step-num">1</span>
+                        <span class="step-text">Carrier sends driver an invite</span>
+                    </div>
+                    <div class="consent-flow-step">
+                        <span class="step-num">2</span>
+                        <span class="step-text">Driver confirms phone number</span>
+                    </div>
+                    <div class="consent-flow-step">
+                        <span class="step-num">3</span>
+                        <span class="step-text">Driver checks SMS consent box</span>
+                    </div>
+                    <div class="consent-flow-step">
+                        <span class="step-num">4</span>
+                        <span class="step-text">Driver submits onboarding form</span>
+                    </div>
+                </div>
+
+                <h2>SMS Consent During Onboarding</h2>
+                <p>During onboarding, drivers are presented with the following consent prompt:</p>
+
+                <div class="consent-mockup">
+                    <h4>Receive Compliance Notifications by SMS</h4>
+                    <span class="mockup-label">As shown during driver onboarding</span>
+                    <input type="tel" class="mockup-phone" placeholder="(555) 555-1234" disabled>
+                    <div class="mockup-checkbox">
+                        <input type="checkbox" id="mockupConsent" checked disabled>
+                        <label for="mockupConsent">I agree to receive SMS text messages from Compliance Nation regarding DOT compliance notifications, including random drug and alcohol testing alerts and account notifications. Message frequency varies. Message & data rates may apply. Reply STOP to opt out. <a href="#privacy-section">Privacy Policy</a> &amp; <a href="#">Terms</a>.</label>
+                    </div>
+                </div>
+
+                <h2>Confirmation Message</h2>
+                <p>Upon completing onboarding and consenting to SMS, drivers receive the following confirmation message:</p>
+                <div class="consent-sms-example">
+                    Compliance Nation: You are subscribed to compliance notifications. Msg frequency varies. Msg & data rates may apply. Reply HELP for help or STOP to opt out.
+                </div>
+
                 <h2>What You're Agreeing To</h2>
-                <p>By providing your phone number to Compliance Nation, you consent to receive SMS text messages regarding:</p>
+                <p>By confirming your phone number and selecting the SMS consent option during onboarding, you consent to receive SMS text messages from Compliance Nation regarding:</p>
                 <ul>
                     <li><strong>DOT Drug & Alcohol Testing</strong> — Notifications about random testing selections, pre-employment test scheduling, and test result availability</li>
                     <li><strong>Compliance Alerts</strong> — Reminders about expiring CDL, medical cards, annual reviews, and other required deadlines</li>
@@ -110,8 +246,8 @@
                 <h2>Need Help?</h2>
                 <p>Reply <strong>HELP</strong> to any message for assistance, or contact us at <a href="mailto:info@compliancenation.net">info@compliancenation.net</a>.</p>
 
-                <h2>Privacy</h2>
-                <p>Your phone number and personal information are handled in accordance with our <a href="#">Privacy Policy</a>. We do not sell or share your phone number with third parties for marketing purposes. All driver information is protected under our compliance security standards.</p>
+                <h2 id="privacy-section">Privacy</h2>
+                <p>Your phone number and personal information are handled in accordance with our <a href="#">Privacy Policy</a>. We do not sell or share your phone number with third parties for marketing purposes. SMS consent is collected directly from the driver during onboarding and is not shared with third parties or used for marketing purposes. All driver information is protected under our compliance security standards.</p>
             </div>
         </div>
     </section>
