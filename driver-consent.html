@@ -216,7 +216,7 @@
                     <input type="tel" class="mockup-phone" placeholder="(555) 555-1234" disabled>
                     <div class="mockup-checkbox">
                         <input type="checkbox" id="mockupConsent" checked disabled>
-                        <label for="mockupConsent">I agree to receive SMS text messages from Compliance Nation regarding DOT compliance notifications, including random drug and alcohol testing alerts and account notifications. Message frequency varies. Message & data rates may apply. Reply STOP to opt out. <a href="#privacy-section">Privacy Policy</a> &amp; <a href="#">Terms</a>.</label>
+                        <label for="mockupConsent">I agree to receive SMS text messages from Compliance Nation regarding DOT compliance notifications, including random drug and alcohol testing alerts and account notifications. Message frequency varies. Message & data rates may apply. Reply STOP to opt out. <a href="https://compliancenation.com/privacy">Privacy Policy</a> &amp; <a href="https://compliancenation.com/terms">Terms</a>.</label>
                     </div>
                 </div>
 
@@ -235,7 +235,7 @@
                 </ul>
 
                 <h2>Message Frequency</h2>
-                <p>Message frequency varies based on your carrier's compliance needs and testing schedule. You may receive messages for time-sensitive events such as random drug test notifications, which require prompt action under federal DOT regulations.</p>
+                <p>Message frequency varies depending on compliance events, testing selections, and account notifications, but typically does not exceed several messages per month unless required for time-sensitive compliance alerts such as random drug test notifications, which require prompt action under federal DOT regulations.</p>
 
                 <h2>Message & Data Rates</h2>
                 <p>Standard message and data rates may apply depending on your wireless carrier and plan. Compliance Nation does not charge for sending SMS messages, but your mobile provider may.</p>
@@ -246,8 +246,16 @@
                 <h2>Need Help?</h2>
                 <p>Reply <strong>HELP</strong> to any message for assistance, or contact us at <a href="mailto:info@compliancenation.net">info@compliancenation.net</a>.</p>
 
+                <h2>SMS Commands</h2>
+                <p>Drivers may manage SMS notifications using the following commands:</p>
+                <ul>
+                    <li><strong>STOP</strong> — Unsubscribe from all SMS notifications</li>
+                    <li><strong>HELP</strong> — Receive assistance and support contact information</li>
+                </ul>
+                <p>After replying STOP, drivers will receive a final confirmation message confirming their opt-out.</p>
+
                 <h2 id="privacy-section">Privacy</h2>
-                <p>Your phone number and personal information are handled in accordance with our <a href="#">Privacy Policy</a>. We do not sell or share your phone number with third parties for marketing purposes. SMS consent is collected directly from the driver during onboarding and is not shared with third parties or used for marketing purposes. All driver information is protected under our compliance security standards.</p>
+                <p>Your phone number and personal information are handled in accordance with our <a href="https://compliancenation.com/privacy">Privacy Policy</a>. We do not sell or share your phone number with third parties for marketing purposes. SMS consent is collected directly from the driver during onboarding and is not shared with third parties or used for marketing purposes. All driver information is protected under our compliance security standards.</p>
             </div>
         </div>
     </section>
@@ -255,8 +263,9 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-bottom">
+            <div class="footer-bottom" style="flex-direction: column; gap: 8px; text-align: center;">
                 <p>&copy; 2026 Compliance Nation. All rights reserved.</p>
+                <p><a href="https://compliancenation.com/privacy" style="color: var(--accent-blue); text-decoration: underline;">Privacy Policy</a> &nbsp;|&nbsp; <a href="https://compliancenation.com/terms" style="color: var(--accent-blue); text-decoration: underline;">Terms &amp; Conditions</a></p>
                 <p class="footer-regulatory">Not affiliated with FMCSA or the U.S. Department of Transportation.</p>
             </div>
         </div>

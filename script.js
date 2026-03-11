@@ -162,7 +162,7 @@ const TIERS = {
         name: 'Consortium',
         period: 'year',
         basePriceCents: 20000, // $200/year
-        // Graduated volume pricing (per-driver rates for drivers beyond the base 10)
+        baseDrivers: 10,
         tiers: [
             { min: 1, max: 10, perDriverCents: 0 },      // included in base
             { min: 11, max: 20, perDriverCents: 2000 },   // $20/driver/yr
@@ -183,6 +183,7 @@ const TIERS = {
         name: 'Core Compliance',
         period: 'month',
         basePriceCents: 19900, // $199/month
+        baseDrivers: 10,
         tiers: [
             { min: 1, max: 10, perDriverCents: 0 },
             { min: 11, max: 20, perDriverCents: 2000 },   // $20/driver/mo
@@ -204,8 +205,10 @@ const TIERS = {
         name: 'Premium',
         period: 'month',
         basePriceCents: 29900, // $299/month
+        baseDrivers: 5,
         tiers: [
-            { min: 1, max: 10, perDriverCents: 0 },
+            { min: 1, max: 5, perDriverCents: 0 },       // included in base
+            { min: 6, max: 10, perDriverCents: 4700 },    // $47/driver/mo
             { min: 11, max: 20, perDriverCents: 4000 },   // $40/driver/mo
             { min: 21, max: 30, perDriverCents: 3500 },   // $35/driver/mo
             { min: 31, max: 50, perDriverCents: 3000 },   // $30/driver/mo
@@ -231,9 +234,10 @@ let currentDrivers = 10;
 
 function calculatePrice(tierKey, drivers) {
     const tier = TIERS[tierKey];
+    const baseDrivers = tier.baseDrivers;
     let totalCents = tier.basePriceCents;
     let extraDriverCost = 0;
-    const extraDrivers = Math.max(0, drivers - 10);
+    const extraDrivers = Math.max(0, drivers - baseDrivers);
 
     if (extraDrivers > 0) {
         let remaining = extraDrivers;
@@ -252,7 +256,8 @@ function calculatePrice(tierKey, drivers) {
         total: totalCents,
         base: tier.basePriceCents,
         extra: extraDriverCost,
-        extraDrivers: Math.max(0, drivers - 10),
+        extraDrivers: extraDrivers,
+        baseDrivers: baseDrivers,
         period: tier.period,
     };
 }
@@ -277,6 +282,7 @@ function updateCalc() {
     document.getElementById('calcAvgDriver').textContent = '$' + avgPerDriver + ' avg cost per driver';
 
     // Breakdown
+    document.getElementById('calcBase').parentElement.querySelector('span:first-child').textContent = 'Base fee (includes ' + price.baseDrivers + ' drivers)';
     document.getElementById('calcBase').textContent = formatDollars(price.base);
     const extraRow = document.getElementById('calcExtraRow');
     if (price.extraDrivers > 0) {
