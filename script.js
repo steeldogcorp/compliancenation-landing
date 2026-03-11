@@ -282,7 +282,7 @@ function updateCalc() {
     document.getElementById('calcAvgDriver').textContent = '$' + avgPerDriver + ' avg cost per driver';
 
     // Breakdown
-    document.getElementById('calcBase').parentElement.querySelector('span:first-child').textContent = 'Base fee (includes ' + price.baseDrivers + ' drivers)';
+    document.getElementById('calcBaseLabel').textContent = 'Base fee (includes ' + price.baseDrivers + ' drivers)';
     document.getElementById('calcBase').textContent = formatDollars(price.base);
     const extraRow = document.getElementById('calcExtraRow');
     if (price.extraDrivers > 0) {
