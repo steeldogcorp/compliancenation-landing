@@ -155,3 +155,189 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// ===== PRICING CALCULATOR =====
+const TIERS = {
+    consortium: {
+        name: 'Consortium',
+        period: 'year',
+        basePriceCents: 20000, // $200/year
+        // Graduated volume pricing (per-driver rates for drivers beyond the base 10)
+        tiers: [
+            { min: 1, max: 10, perDriverCents: 0 },      // included in base
+            { min: 11, max: 20, perDriverCents: 2000 },   // $20/driver/yr
+            { min: 21, max: 30, perDriverCents: 1800 },   // $18/driver/yr
+            { min: 31, max: 50, perDriverCents: 1500 },   // $15/driver/yr
+            { min: 51, max: 100, perDriverCents: 1200 },  // $12/driver/yr
+        ],
+        features: [
+            'Random drug & alcohol testing pool',
+            'Certificate of enrollment',
+            'Company drug & alcohol policy',
+            'Lab coordination & record keeping',
+            'DOT-compliant random selections',
+            'Test result record management',
+        ]
+    },
+    core: {
+        name: 'Core Compliance',
+        period: 'month',
+        basePriceCents: 19900, // $199/month
+        tiers: [
+            { min: 1, max: 10, perDriverCents: 0 },
+            { min: 11, max: 20, perDriverCents: 2000 },   // $20/driver/mo
+            { min: 21, max: 30, perDriverCents: 1800 },   // $18/driver/mo
+            { min: 31, max: 50, perDriverCents: 1500 },   // $15/driver/mo
+            { min: 51, max: 100, perDriverCents: 1200 },  // $12/driver/mo
+        ],
+        features: [
+            'Everything in Consortium',
+            'Automated driver onboarding',
+            'Driver qualification file builder',
+            'Driving record checks on hire',
+            'FMCSA Clearinghouse queries',
+            'Deadline tracking & expiration alerts',
+            'Vehicle maintenance file tracking',
+        ]
+    },
+    premium: {
+        name: 'Premium',
+        period: 'month',
+        basePriceCents: 29900, // $299/month
+        tiers: [
+            { min: 1, max: 10, perDriverCents: 0 },
+            { min: 11, max: 20, perDriverCents: 4000 },   // $40/driver/mo
+            { min: 21, max: 30, perDriverCents: 3500 },   // $35/driver/mo
+            { min: 31, max: 50, perDriverCents: 3000 },   // $30/driver/mo
+            { min: 51, max: 100, perDriverCents: 2500 },  // $25/driver/mo
+        ],
+        features: [
+            'Everything in Core Compliance',
+            'Continuous driving record monitoring',
+            'Insurance broker integration',
+            'One-click DOT audit export',
+            'Reasonable suspicion training (free)',
+            'AI compliance assistant',
+            'Priority support',
+        ]
+    }
+};
+
+const SAFETY_MANAGER_LOW = 55000;
+const SAFETY_MANAGER_HIGH = 75000;
+
+let currentTier = 'core';
+let currentDrivers = 10;
+
+function calculatePrice(tierKey, drivers) {
+    const tier = TIERS[tierKey];
+    let totalCents = tier.basePriceCents;
+    let extraDriverCost = 0;
+    const extraDrivers = Math.max(0, drivers - 10);
+
+    if (extraDrivers > 0) {
+        let remaining = extraDrivers;
+        for (let i = 1; i < tier.tiers.length; i++) {
+            const band = tier.tiers[i];
+            const bandSize = band.max - band.min + 1;
+            const driversInBand = Math.min(remaining, bandSize);
+            if (driversInBand <= 0) break;
+            extraDriverCost += driversInBand * band.perDriverCents;
+            remaining -= driversInBand;
+        }
+    }
+
+    totalCents += extraDriverCost;
+    return {
+        total: totalCents,
+        base: tier.basePriceCents,
+        extra: extraDriverCost,
+        extraDrivers: Math.max(0, drivers - 10),
+        period: tier.period,
+    };
+}
+
+function formatDollars(cents) {
+    return '$' + (cents / 100).toLocaleString('en-US', { maximumFractionDigits: 0 });
+}
+
+function updateCalc() {
+    const tier = TIERS[currentTier];
+    const price = calculatePrice(currentTier, currentDrivers);
+
+    // Update driver count display
+    document.getElementById('calcDriverCount').textContent = currentDrivers;
+
+    // Update price display
+    document.getElementById('calcAmount').textContent = (price.total / 100).toLocaleString('en-US', { maximumFractionDigits: 0 });
+    document.getElementById('calcPeriod').textContent = '/' + price.period;
+
+    // Average per driver
+    const avgPerDriver = (price.total / 100 / currentDrivers).toFixed(2);
+    document.getElementById('calcAvgDriver').textContent = '$' + avgPerDriver + ' avg cost per driver';
+
+    // Breakdown
+    document.getElementById('calcBase').textContent = formatDollars(price.base);
+    const extraRow = document.getElementById('calcExtraRow');
+    if (price.extraDrivers > 0) {
+        extraRow.style.display = 'flex';
+        document.getElementById('calcExtraLabel').textContent = price.extraDrivers + ' additional driver' + (price.extraDrivers > 1 ? 's' : '');
+        document.getElementById('calcExtraAmount').textContent = formatDollars(price.extra);
+    } else {
+        extraRow.style.display = 'none';
+    }
+    document.getElementById('calcTotal').textContent = formatDollars(price.total) + '/' + price.period;
+
+    // Feature list
+    const featureList = document.getElementById('calcFeatureList');
+    featureList.innerHTML = tier.features.map(f => '<li>' + f + '</li>').join('');
+
+    // ROI Calculation
+    let annualCost;
+    if (price.period === 'year') {
+        annualCost = price.total / 100;
+    } else {
+        annualCost = (price.total / 100) * 12;
+    }
+
+    document.getElementById('roiOurCost').textContent = '$' + annualCost.toLocaleString('en-US', { maximumFractionDigits: 0 }) + '/yr';
+
+    const savingsLow = SAFETY_MANAGER_LOW - annualCost;
+    const savingsHigh = SAFETY_MANAGER_HIGH - annualCost;
+
+    if (savingsLow > 0) {
+        document.getElementById('roiSavings').textContent =
+            '$' + savingsLow.toLocaleString('en-US', { maximumFractionDigits: 0 }) +
+            ' – $' + savingsHigh.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    } else {
+        document.getElementById('roiSavings').textContent =
+            'Up to $' + savingsHigh.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    }
+
+    // Update slider fill
+    const slider = document.getElementById('driverSlider');
+    const percent = ((currentDrivers - 1) / 99) * 100;
+    slider.style.background = 'linear-gradient(to right, #3B82F6 0%, #06B6D4 ' + percent + '%, #1A2744 ' + percent + '%)';
+}
+
+// Tier tab clicks
+document.getElementById('calcTierTabs').addEventListener('click', function(e) {
+    const tab = e.target.closest('.calc-tier-tab');
+    if (!tab) return;
+    currentTier = tab.dataset.tier;
+    document.querySelectorAll('.calc-tier-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    updateCalc();
+});
+
+// Slider input
+const driverSlider = document.getElementById('driverSlider');
+if (driverSlider) {
+    driverSlider.addEventListener('input', function() {
+        currentDrivers = parseInt(this.value, 10);
+        updateCalc();
+    });
+}
+
+// Initialize
+updateCalc();

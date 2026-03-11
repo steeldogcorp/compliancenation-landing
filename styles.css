@@ -863,115 +863,264 @@ img { max-width: 100%; height: auto; display: block; }
     color: var(--text-muted);
 }
 
-/* ===== PRICING ===== */
+/* ===== PRICING CALCULATOR ===== */
 .pricing {
     padding: 120px 0;
     background: linear-gradient(180deg, transparent, rgba(59,130,246,0.03), transparent);
 }
 
-.pricing-grid {
+/* Tier Tabs */
+.calc-tier-tabs {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+}
+
+.calc-tier-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 16px 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    min-width: 180px;
+}
+
+.calc-tier-tab:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-card-hover);
+}
+
+.calc-tier-tab.active {
+    background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(6,182,212,0.05));
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 20px rgba(59,130,246,0.15);
+}
+
+.tab-name {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.tab-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.calc-tier-tab.active .tab-desc {
+    color: var(--accent-cyan);
+}
+
+/* Calculator Body */
+.calc-body {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 1000px;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
-.pricing-card {
-    padding: 36px;
+.calc-panel {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
+    padding: 36px;
+}
+
+/* Slider */
+.calc-slider-section {
+    margin-bottom: 32px;
+}
+
+.calc-slider-header {
     display: flex;
-    flex-direction: column;
-    transition: all var(--transition-base);
-    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
 }
 
-.pricing-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+.calc-slider-header label {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
-.pricing-card-featured {
-    background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(6,182,212,0.04));
-    border-color: rgba(59,130,246,0.3);
-    transform: scale(1.05);
-    box-shadow: var(--shadow-glow);
-}
-.pricing-card-featured:hover {
-    transform: scale(1.05) translateY(-4px);
+.calc-driver-count {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    min-width: 48px;
+    text-align: right;
 }
 
-.pricing-popular {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 4px 20px;
+.calc-slider {
+    width: 100%;
+    height: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    outline: none;
+    cursor: pointer;
+}
+
+.calc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
     background: var(--gradient-primary);
-    color: white;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.4);
+    transition: transform var(--transition-fast);
+}
+
+.calc-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+.calc-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.4);
+}
+
+.calc-slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+}
+
+/* Price Display */
+.calc-result {
+    margin-bottom: 28px;
+}
+
+.calc-price-display {
+    text-align: center;
+    padding: 28px 20px;
+    background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(6,182,212,0.03));
+    border: 1px solid rgba(59,130,246,0.15);
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+}
+
+.calc-price-label {
     font-size: 0.75rem;
     font-weight: 600;
-    border-radius: 100px;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
+    color: var(--accent-cyan);
+    display: block;
+    margin-bottom: 8px;
 }
 
-.pricing-tier {
-    font-size: 1.125rem;
-    font-weight: 700;
-    margin-bottom: 4px;
-}
-
-.pricing-desc {
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-    margin-bottom: 24px;
-}
-
-.pricing-price {
-    margin-bottom: 28px;
+.calc-price-main {
     display: flex;
     align-items: baseline;
+    justify-content: center;
     gap: 2px;
 }
 
-.price-currency {
-    font-size: 1.25rem;
+.calc-currency {
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--text-secondary);
 }
 
-.price-amount {
-    font-size: 3rem;
+.calc-amount {
+    font-size: 3.5rem;
     font-weight: 800;
     line-height: 1;
+    transition: all 0.3s ease;
 }
 
-.price-period {
-    font-size: 0.875rem;
+.calc-period {
+    font-size: 1rem;
     color: var(--text-muted);
     margin-left: 4px;
 }
 
-.pricing-features {
+.calc-avg-driver {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+}
+
+/* Breakdown */
+.calc-breakdown {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.calc-breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+}
+
+.calc-breakdown-row:last-child {
+    border-bottom: none;
+}
+
+.calc-breakdown-total {
+    background: var(--bg-elevated);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Feature List */
+.calc-features {
+    margin-bottom: 24px;
+}
+
+.calc-features h4 {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.calc-features ul {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 32px;
-    flex: 1;
+    gap: 8px;
 }
 
-.pricing-features li {
+.calc-features li {
     font-size: 0.875rem;
     color: var(--text-secondary);
     padding-left: 24px;
     position: relative;
 }
 
-.pricing-features li::before {
+.calc-features li::before {
     content: '✓';
     position: absolute;
     left: 0;
@@ -980,12 +1129,247 @@ img { max-width: 100%; height: auto; display: block; }
     font-size: 0.75rem;
 }
 
+.calc-cta {
+    font-size: 1.0625rem;
+    padding: 16px 28px;
+}
+
+/* ROI Panel */
+.calc-roi {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 36px;
+}
+
+.roi-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.roi-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.roi-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.roi-header p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+/* ROI Comparison Rows */
+.roi-comparison {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.roi-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+}
+
+.roi-row-them {
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.15);
+}
+
+.roi-row-us {
+    background: rgba(16,185,129,0.06);
+    border: 1px solid rgba(16,185,129,0.15);
+}
+
+.roi-row-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.roi-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.roi-dot-red { background: var(--accent-red); }
+.roi-dot-green { background: var(--accent-green); }
+
+.roi-row-value {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.roi-value-green {
+    color: var(--accent-green);
+}
+
+/* Savings Box */
+.roi-savings-box {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(6,182,212,0.04));
+    border: 1px solid rgba(16,185,129,0.2);
+    border-radius: var(--radius-md);
+    margin-bottom: 28px;
+}
+
+.roi-savings-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-green);
+    margin-bottom: 6px;
+}
+
+.roi-savings-amount {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent-green);
+}
+
+/* Progress Bar */
+.roi-bar-section {
+    margin-bottom: 24px;
+}
+
+.roi-bar-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.roi-bar-track {
+    height: 28px;
+    background: var(--bg-elevated);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.roi-bar-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    transition: width 0.6s ease;
+}
+
+.roi-bar-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.roi-detail {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+}
+
+.roi-detail-icon {
+    font-size: 0.875rem;
+}
+
+/* Task List */
+.roi-tasks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.roi-tasks li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8125rem;
+    padding: 6px 0;
+}
+
+.roi-task-auto {
+    color: var(--text-secondary);
+}
+
+.roi-task-auto .check {
+    width: 20px;
+    height: 20px;
+    font-size: 0.6875rem;
+}
+
+.roi-task-manual {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.roi-task-manual .x-mark {
+    width: 20px;
+    height: 20px;
+    background: rgba(100,116,139,0.1);
+    color: var(--text-muted);
+    font-size: 0.6875rem;
+}
+
 .pricing-note {
     text-align: center;
     font-size: 0.8125rem;
     color: var(--text-muted);
     margin-top: 32px;
     font-style: italic;
+}
+
+/* Responsive pricing calculator */
+@media (max-width: 1024px) {
+    .calc-body {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .calc-tier-tabs {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .calc-tier-tab {
+        min-width: auto;
+        flex-direction: row;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 20px;
+    }
+    .calc-panel, .calc-roi {
+        padding: 24px;
+    }
+    .calc-amount {
+        font-size: 2.5rem;
+    }
+    .roi-row {
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+    }
 }
 
 /* ===== SUBSCRIBE ===== */

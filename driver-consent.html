@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver SMS Consent — Compliance Nation</title>
+    <meta name="description" content="Compliance Nation SMS consent disclosure for drivers regarding DOT drug and alcohol testing notifications, compliance alerts, and account notifications.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🛡️</text></svg>">
+    <style>
+        .consent-page {
+            padding: 160px 0 80px;
+            min-height: 100vh;
+        }
+        .consent-card {
+            max-width: 720px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+        }
+        .consent-card h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .consent-card .consent-updated {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+        .consent-card h2 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+        .consent-card p, .consent-card li {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .consent-card ul {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+        .consent-card li {
+            margin-bottom: 6px;
+        }
+        .consent-card a {
+            color: var(--accent-blue);
+            text-decoration: underline;
+        }
+        .consent-card a:hover {
+            color: var(--accent-cyan);
+        }
+        @media (max-width: 768px) {
+            .consent-card { padding: 28px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">Compliance<span class="logo-accent">Nation</span></span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html#features">Features</a>
+                <a href="index.html#how-it-works">How It Works</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#subscribe" class="nav-cta">Get Early Access</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="consent-page">
+        <div class="container">
+            <div class="consent-card">
+                <h1>Driver SMS Consent</h1>
+                <p class="consent-updated">Last updated: March 11, 2026</p>
+
+                <h2>What You're Agreeing To</h2>
+                <p>By providing your phone number to Compliance Nation, you consent to receive SMS text messages regarding:</p>
+                <ul>
+                    <li><strong>DOT Drug & Alcohol Testing</strong> — Notifications about random testing selections, pre-employment test scheduling, and test result availability</li>
+                    <li><strong>Compliance Alerts</strong> — Reminders about expiring CDL, medical cards, annual reviews, and other required deadlines</li>
+                    <li><strong>Account Notifications</strong> — Onboarding links, document upload requests, and profile verification messages</li>
+                </ul>
+
+                <h2>Message Frequency</h2>
+                <p>Message frequency varies based on your carrier's compliance needs and testing schedule. You may receive messages for time-sensitive events such as random drug test notifications, which require prompt action under federal DOT regulations.</p>
+
+                <h2>Message & Data Rates</h2>
+                <p>Standard message and data rates may apply depending on your wireless carrier and plan. Compliance Nation does not charge for sending SMS messages, but your mobile provider may.</p>
+
+                <h2>How to Opt Out</h2>
+                <p>You can opt out of receiving SMS messages at any time by replying <strong>STOP</strong> to any message. After opting out, you will receive one final confirmation message. Please note that opting out of SMS notifications does not remove you from your carrier's compliance program — your employer's Designated Employer Representative (DER) will be responsible for contacting you directly regarding testing requirements.</p>
+
+                <h2>Need Help?</h2>
+                <p>Reply <strong>HELP</strong> to any message for assistance, or contact us at <a href="mailto:info@compliancenation.net">info@compliancenation.net</a>.</p>
+
+                <h2>Privacy</h2>
+                <p>Your phone number and personal information are handled in accordance with our <a href="#">Privacy Policy</a>. We do not sell or share your phone number with third parties for marketing purposes. All driver information is protected under our compliance security standards.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Compliance Nation. All rights reserved.</p>
+                <p class="footer-regulatory">Not affiliated with FMCSA or the U.S. Department of Transportation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+        }
+    </script>
+</body>
+</html>
