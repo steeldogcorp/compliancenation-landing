@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compliance Nation — FMCSA Compliance Automation for Carriers</title>
-    <meta name="description" content="Compliance Nation automates driver onboarding, qualification files, drug testing, and FMCSA compliance for motor carriers. Your AI-powered safety and compliance manager at a fraction of the cost.">
+    <title>Compliance Nation — DOT Compliance Platform for Carriers</title>
+    <meta name="description" content="Automated FMCSA compliance management for motor carriers, construction companies, and DOT-regulated fleets. Driver qualification files, drug testing, vehicle compliance — all in one platform.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -12,547 +12,313 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🛡️</text></svg>">
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- ── Navigation ──────────────────────────────────────────────── -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <a href="#" class="logo">
-                <span class="logo-icon">🛡️</span>
-                <span class="logo-text">Compliance<span class="logo-accent">Nation</span></span>
+                <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                <span class="logo-text">Compliance Nation</span>
             </a>
-            <div class="nav-links" id="navLinks">
-                <a href="#features">Features</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#subscribe" class="nav-cta">Get Early Access</a>
+            <!-- Login/Register hidden while app is not live
+            <div class="nav-actions">
+                <a href="/sign-in" class="nav-link">Sign In</a>
+                <a href="/sign-up" class="nav-btn-primary">
+                    Register Now
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
             </div>
-            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
-                <span></span><span></span><span></span>
-            </button>
+            -->
+            <div class="nav-actions">
+                <a href="#subscribe" class="nav-btn-primary">
+                    Get Early Access
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-bg-grid"></div>
+    <!-- ── Hero Section ────────────────────────────────────────────── -->
+    <section class="hero">
         <div class="hero-glow hero-glow-1"></div>
         <div class="hero-glow hero-glow-2"></div>
-        <div class="container hero-container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="badge-dot"></span>
-                    Now in Early Access
-                </div>
-                <h1 class="hero-title">
-                    FMCSA Compliance<br>
-                    <span class="gradient-text">on Autopilot</span>
-                </h1>
-                <p class="hero-subtitle">
-                    Your AI-powered safety and compliance manager — at a fraction of the cost. Compliance Nation handles driver onboarding, qualification files, drug testing, and audit preparation so you can focus on running your fleet.
-                </p>
-                <div class="hero-actions">
-                    <a href="#subscribe" class="btn btn-primary btn-lg">
-                        <span>Get Early Access</span>
-                        <svg class="btn-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </a>
-                    <a href="#how-it-works" class="btn btn-ghost btn-lg">
-                        See How It Works
-                    </a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number" data-target="391">0</span>
-                        <span class="stat-label">CFR Sections Covered</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat">
-                        <span class="stat-number"><span data-target="90" class="counter">0</span>%</span>
-                        <span class="stat-label">Time Saved on Onboarding</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat">
-                        <span class="stat-number">24/7</span>
-                        <span class="stat-label">Compliance Monitoring</span>
-                    </div>
-                </div>
+        <div class="container hero-content">
+            <div class="hero-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                <span>DOT Compliance Platform</span>
             </div>
-            <div class="hero-visual">
-                <div class="dashboard-preview">
-                    <img src="hero-dashboard.png" alt="Compliance Nation Dashboard Preview" class="dashboard-img">
-                    <div class="dashboard-float dashboard-float-1">
-                        <div class="float-card">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill="#10B981"/></svg>
-                            <span>CDL Verified</span>
-                        </div>
-                    </div>
-                    <div class="dashboard-float dashboard-float-2">
-                        <div class="float-card">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill="#10B981"/></svg>
-                            <span>Drug Test Clear</span>
-                        </div>
-                    </div>
-                    <div class="dashboard-float dashboard-float-3">
-                        <div class="float-card score-card">
-                            <span class="score-label">Safety Score</span>
-                            <span class="score-value">94</span>
-                        </div>
-                    </div>
-                </div>
+            <h1 class="hero-title">
+                Stay Compliant. <span class="text-blue">Stay Moving.</span>
+            </h1>
+            <p class="hero-subtitle">
+                Built for every DOT-regulated company — motor carriers, construction companies, landscapers, excavation companies, passenger services, and more. Automated FMCSA compliance management so you can focus on your fleet.
+            </p>
+            <div class="hero-actions">
+                <!-- Login/Register hidden while app is not live
+                <a href="/sign-up" class="btn-primary-lg">
+                    Register Now
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                <a href="/sign-in" class="btn-outline-lg">Sign In</a>
+                -->
+                <a href="#subscribe" class="btn-primary-lg">
+                    Get Early Access
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+                <a href="#pricing" class="btn-outline-lg">See Pricing</a>
             </div>
         </div>
     </section>
 
-    <!-- Trusted By / Social Proof -->
-    <section class="social-proof">
-        <div class="container">
-            <p class="social-proof-text">Built for FMCSA-regulated motor carriers of all sizes</p>
-            <div class="proof-items">
-                <div class="proof-item">
-                    <span class="proof-icon">🚛</span>
-                    <span>Small Fleets (1-25)</span>
-                </div>
-                <div class="proof-item">
-                    <span class="proof-icon">🚚</span>
-                    <span>Mid-Size Carriers (25-100)</span>
-                </div>
-                <div class="proof-item">
-                    <span class="proof-icon">🏗️</span>
-                    <span>Large Operations (100+)</span>
-                </div>
-                <div class="proof-item">
-                    <span class="proof-icon">🤝</span>
-                    <span>Broker Agencies</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
+    <!-- ── Features Section ────────────────────────────────────────── -->
     <section class="features" id="features">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Features</span>
-                <h2 class="section-title">Everything you need to <span class="gradient-text">stay compliant</span></h2>
-                <p class="section-subtitle">Replace your filing cabinets, spreadsheets, and compliance anxiety with one intelligent platform.</p>
+                <h2 class="section-title">Everything you need to stay DOT compliant</h2>
+                <p class="section-subtitle">One platform to manage driver qualification files, drug &amp; alcohol programs, vehicle compliance, and more.</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card feature-card-lg">
-                    <div class="feature-icon-wrap">
-                        <div class="feature-icon">📱</div>
+                <div class="feature-card">
+                    <div class="feature-icon feature-icon-blue">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                     </div>
-                    <h3>Scan & Go License Capture</h3>
-                    <p>Drivers take a photo of their CDL from their phone. Our system reads the license, pulls out the important details, and fills in the application for them — no typing needed.</p>
-                    <div class="feature-visual">
-                        <div class="scan-animation">
-                            <div class="scan-doc">
-                                <div class="scan-line"></div>
-                                <div class="scan-field scan-field-1"></div>
-                                <div class="scan-field scan-field-2"></div>
-                                <div class="scan-field scan-field-3"></div>
-                            </div>
-                            <div class="scan-results">
-                                <div class="scan-result"><span class="check">✓</span> Name extracted</div>
-                                <div class="scan-result"><span class="check">✓</span> CDL class verified</div>
-                                <div class="scan-result"><span class="check">✓</span> Expiration date logged</div>
-                            </div>
-                        </div>
-                    </div>
+                    <h3>Driver Qualification Files</h3>
+                    <p>Complete DQ file management — applications, MVR, medical certs, CDL tracking, and automated expiration alerts.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon-wrap">
-                        <div class="feature-icon">📋</div>
+                    <div class="feature-icon feature-icon-green">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.58 16.5h12.85"/></svg>
                     </div>
-                    <h3>Automatic Driver Files</h3>
-                    <p>Your driver qualification files build themselves as information comes in. We track what's complete and what's still needed — so nothing falls through the cracks.</p>
+                    <h3>Drug &amp; Alcohol Program</h3>
+                    <p>Consortium management, random selection pool, pre-employment testing, and full Clearinghouse integration.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon-wrap">
-                        <div class="feature-icon">🧪</div>
+                    <div class="feature-icon feature-icon-amber">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="m16 8 4 2.5v5L16 18"/><circle cx="8.5" cy="20" r="2"/><circle cx="18.5" cy="20" r="2"/></svg>
                     </div>
-                    <h3>Random Drug & Alcohol Testing</h3>
-                    <p>DOT-compliant random testing pool with fair, computer-generated selections. We handle the notifications, lab coordination, and all the required record keeping.</p>
+                    <h3>Fleet Vehicle Compliance</h3>
+                    <p>Vehicle registration, insurance tracking, DVIR management, and maintenance scheduling all in one place.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon-wrap">
-                        <div class="feature-icon">🛡️</div>
+                    <div class="feature-icon feature-icon-blue">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.4"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.4"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg>
                     </div>
-                    <h3>Always Audit-Ready</h3>
-                    <p>Every action in the system is permanently recorded. When an auditor comes knocking, your records are organized, complete, and ready to go.</p>
+                    <h3>FMCSA Integration</h3>
+                    <p>Automated SAFER System sync, PSP report ordering, BASICs monitoring, and DataQs crash challenge tracking.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon-wrap">
-                        <div class="feature-icon">⏰</div>
+                    <div class="feature-icon feature-icon-violet">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     </div>
-                    <h3>Deadline Tracking & Alerts</h3>
-                    <p>Automatic reminders when CDL renewals, medical cards, MVR pulls, and annual reviews are coming due. Never miss a deadline again.</p>
+                    <h3>Driver Onboarding</h3>
+                    <p>Digital applications, mobile document capture, e-signatures, and automated screening workflows.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon-wrap">
-                        <div class="feature-icon">📊</div>
+                    <div class="feature-icon feature-icon-rose">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
                     </div>
-                    <h3>Driver Safety Monitoring</h3>
-                    <p>Keep an eye on driving records, safety scores, and risk factors for every driver in your fleet — all in one dashboard.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon-wrap">
-                        <div class="feature-icon">🤖</div>
-                    </div>
-                    <h3>AI Compliance Assistant</h3>
-                    <p>Have a compliance question? Ask our AI assistant. It pulls answers directly from the actual FMCSA rules so you get the right answer every time.</p>
+                    <h3>Compliance Monitoring</h3>
+                    <p>Real-time compliance scoring, automated reminders, audit-ready reports, and append-only event ledger.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works (Animated Workflow) -->
-    <section class="how-it-works" id="how-it-works">
+    <!-- ── Pricing Section ─────────────────────────────────────────── -->
+    <section class="pricing-section" id="pricing">
         <div class="container">
-            <div class="section-header">
-                <span class="section-tag">How It Works</span>
-                <h2 class="section-title">From invite to <span class="gradient-text">hire-ready</span> in 4 steps</h2>
-                <p class="section-subtitle">Your part takes 2 minutes. The system handles the rest.</p>
-            </div>
-            <div class="workflow">
-                <div class="workflow-track">
-                    <div class="workflow-progress" id="workflowProgress"></div>
+
+            <!-- ROI Dark Banner -->
+            <div class="roi-banner">
+                <div class="roi-banner-grid">
+                    <div>
+                        <p class="roi-banner-tag roi-banner-tag-old">The Old Way</p>
+                        <h3 class="roi-banner-title">Hiring for compliance is expensive</h3>
+                        <ul class="roi-banner-list">
+                            <li>❌ $68K–$130K Compliance Manager</li>
+                            <li>❌ $60K–$90K Safety Manager</li>
+                            <li>❌ Manual tracking, follow-ups, and errors</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="roi-banner-tag roi-banner-tag-new">With Compliance Nation</p>
+                        <h3 class="roi-banner-title">Automate 60–80% of compliance work</h3>
+                        <ul class="roi-banner-list roi-banner-list-new">
+                            <li>✅ Real-time compliance monitoring</li>
+                            <li>✅ Automated alerts &amp; renewals</li>
+                            <li>✅ Audit-ready at all times</li>
+                        </ul>
+                        <div class="roi-banner-savings">
+                            <p>Save $56K–$118K/year</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="workflow-steps">
-                    <div class="workflow-step active" data-step="1">
-                        <div class="step-connector">
-                            <div class="step-dot">
-                                <span class="step-number">1</span>
-                            </div>
+            </div>
+
+            <!-- Pricing Header -->
+            <div class="section-header">
+                <h2 class="section-title">Simple, transparent pricing</h2>
+                <p class="section-subtitle">Replace spreadsheets, paperwork, and manual follow-ups with one system.</p>
+            </div>
+
+            <!-- Plan Selector Tabs -->
+            <div class="plan-tabs" id="planTabs">
+                <button class="plan-tab" data-plan="consortium">Consortium</button>
+                <button class="plan-tab active" data-plan="core">Core Compliance</button>
+                <button class="plan-tab" data-plan="premium">Premium</button>
+            </div>
+
+            <!-- Driver Count Selector -->
+            <div class="driver-selector">
+                <div class="driver-selector-card">
+                    <label class="driver-selector-label">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        How many drivers does your company have?
+                    </label>
+                    <div class="driver-slider-row">
+                        <input type="range" id="driverSlider" class="driver-slider" min="1" max="55" value="10">
+                        <span class="driver-count" id="driverCount">10</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROI Calculator -->
+            <div class="roi-calculator">
+                <div class="roi-calc-card">
+                    <div class="roi-calc-glow"></div>
+                    <div class="roi-calc-header">
+                        <p class="roi-calc-tag">Estimated ROI</p>
+                        <h3 class="roi-calc-title" id="roiTitle">Core Compliance replaces manual compliance work</h3>
+                    </div>
+                    <div class="roi-calc-grid">
+                        <div class="roi-box roi-box-red">
+                            <p class="roi-box-label">Without Automation</p>
+                            <p class="roi-box-value" id="roiLaborCost">$108,500</p>
+                            <p class="roi-box-sub">per year in labor</p>
                         </div>
-                        <div class="step-content">
-                            <div class="step-icon-box">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-                            </div>
-                            <h3>Invite Driver</h3>
-                            <p>Send a magic link via SMS. Driver opens it on their phone — no app download needed.</p>
+                        <div class="roi-box roi-box-neutral">
+                            <p class="roi-box-label">With Compliance Nation</p>
+                            <p class="roi-box-value" id="roiAnnualCost">$2,388</p>
+                            <p class="roi-box-sub">total annual cost</p>
+                            <p class="roi-box-note">Pricing includes base plan + scaled per-driver rates</p>
+                        </div>
+                        <div class="roi-box roi-box-green">
+                            <p class="roi-box-label">Your Savings</p>
+                            <p class="roi-box-value" id="roiSavings">$106,112</p>
+                            <p class="roi-box-sub">per year saved</p>
                         </div>
                     </div>
-                    <div class="workflow-step" data-step="2">
-                        <div class="step-connector">
-                            <div class="step-dot">
-                                <span class="step-number">2</span>
-                            </div>
+                    <p class="roi-framing" id="roiFraming">
+                        That's like hiring a <span class="roi-framing-bold" id="roiLaborInline">$108,500 employee</span>
+                        for <span class="roi-framing-green" id="roiMonthlyInline">$199/month</span>
+                    </p>
+                    <div class="roi-divider"></div>
+                    <div class="roi-metrics">
+                        <div>
+                            <p class="roi-metric-label">Time Saved</p>
+                            <p class="roi-metric-value" id="roiHours">4 hrs/week</p>
                         </div>
-                        <div class="step-content">
-                            <div class="step-icon-box">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                            </div>
-                            <h3>Scan & Apply</h3>
-                            <p>The driver takes a photo of their CDL with their phone camera. The system reads it and fills in their application automatically.</p>
+                        <div>
+                            <p class="roi-metric-label">Efficiency Gain</p>
+                            <p class="roi-metric-value">60–80% workload reduction</p>
                         </div>
-                    </div>
-                    <div class="workflow-step" data-step="3">
-                        <div class="step-connector">
-                            <div class="step-dot">
-                                <span class="step-number">3</span>
-                            </div>
-                        </div>
-                        <div class="step-content">
-                            <div class="step-icon-box">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                            </div>
-                            <h3>Auto-Verify</h3>
-                            <p>The system pulls driving records, checks the FMCSA Clearinghouse, and orders the pre-employment drug test — all without you lifting a finger.</p>
+                        <div>
+                            <p class="roi-metric-label">Payback Period</p>
+                            <p class="roi-metric-value" id="roiPayback">1 days</p>
                         </div>
                     </div>
-                    <div class="workflow-step" data-step="4">
-                        <div class="step-connector">
-                            <div class="step-dot">
-                                <span class="step-number">4</span>
-                            </div>
-                        </div>
-                        <div class="step-content">
-                            <div class="step-icon-box">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                            </div>
-                            <h3>Hire Ready</h3>
-                            <p>Once everything clears, your driver's complete qualification file is assembled and audit-ready from day one. No paperwork left behind.</p>
-                        </div>
-                    </div>
+                    <p class="roi-disclaimer">Estimates based on industry averages. Actual savings may vary by operation.</p>
+                </div>
+            </div>
+
+            <!-- Plan Cards Grid -->
+            <div class="plan-cards" id="planCards">
+                <!-- Cards rendered by JS -->
+            </div>
+
+            <!-- Mini Value Bar -->
+            <div class="value-bar">
+                <div class="value-bar-item">
+                    <p>Save $56K–$118K/year</p>
+                </div>
+                <div class="value-bar-item">
+                    <p>Reduce workload by 60–80%</p>
+                </div>
+                <div class="value-bar-item">
+                    <p>Audit-ready 24/7</p>
+                </div>
+            </div>
+
+            <!-- Contact Sales -->
+            <div class="contact-sales">
+                <div class="contact-sales-pill">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <span>More than 50 drivers? <a href="mailto:sales@compliancenation.io">Contact Sales</a> for custom pricing.</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Before/After Comparison -->
-    <section class="comparison">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Why Switch</span>
-                <h2 class="section-title">The old way vs. <span class="gradient-text">the CN way</span></h2>
-            </div>
-            <div class="comparison-grid">
-                <div class="comparison-card comparison-old">
-                    <div class="comparison-header">
-                        <span class="comp-icon">📁</span>
-                        <h3>The Old Way</h3>
-                    </div>
-                    <ul class="comparison-list">
-                        <li><span class="x-mark">✕</span> Paper applications mailed or faxed</li>
-                        <li><span class="x-mark">✕</span> Hours of manual data entry</li>
-                        <li><span class="x-mark">✕</span> Chasing down driving records yourself</li>
-                        <li><span class="x-mark">✕</span> Filing cabinets full of driver files</li>
-                        <li><span class="x-mark">✕</span> Spreadsheets to track expirations</li>
-                        <li><span class="x-mark">✕</span> Hoping you didn't miss a required form</li>
-                        <li><span class="x-mark">✕</span> Scrambling when an auditor shows up</li>
-                    </ul>
-                    <div class="comparison-time">
-                        <span class="time-value">2+ weeks</span>
-                        <span class="time-label">Typical onboarding time</span>
-                    </div>
-                </div>
-                <div class="comparison-card comparison-new">
-                    <div class="comparison-header">
-                        <span class="comp-icon">🛡️</span>
-                        <h3>The CN Way</h3>
-                        <span class="comp-badge">Recommended</span>
-                    </div>
-                    <ul class="comparison-list">
-                        <li><span class="check-mark">✓</span> You send an invite — takes 2 minutes</li>
-                        <li><span class="check-mark">✓</span> Driver fills out the app from their phone</li>
-                        <li><span class="check-mark">✓</span> System pulls driving records automatically</li>
-                        <li><span class="check-mark">✓</span> Driver files build themselves as info comes in</li>
-                        <li><span class="check-mark">✓</span> Automatic alerts before anything expires</li>
-                        <li><span class="check-mark">✓</span> We become your safety & compliance manager</li>
-                        <li><span class="check-mark">✓</span> Always audit-ready — no scrambling</li>
-                    </ul>
-                    <div class="comparison-time">
-                        <span class="time-value time-fast">As little as 3 days</span>
-                        <span class="time-label">Driver fully onboarded</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Calculator -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Pricing</span>
-                <h2 class="section-title">Plans that <span class="gradient-text">grow with you</span></h2>
-                <p class="section-subtitle">Select your plan and fleet size. See exactly what you'll pay — no surprises.</p>
-            </div>
-
-            <!-- Tier Selection Tabs -->
-            <div class="calc-tier-tabs" id="calcTierTabs">
-                <button class="calc-tier-tab" data-tier="consortium">
-                    <span class="tab-name">Consortium</span>
-                    <span class="tab-desc">Drug & Alcohol Pool</span>
-                </button>
-                <button class="calc-tier-tab active" data-tier="core">
-                    <span class="tab-name">Core Compliance</span>
-                    <span class="tab-desc">Full-Service Manager</span>
-                </button>
-                <button class="calc-tier-tab" data-tier="premium">
-                    <span class="tab-name">Premium</span>
-                    <span class="tab-desc">Zero-Touch Hiring</span>
-                </button>
-            </div>
-
-            <div class="calc-body">
-                <!-- Left: Calculator -->
-                <div class="calc-panel">
-                    <div class="calc-slider-section">
-                        <div class="calc-slider-header">
-                            <label for="driverSlider">How many drivers do you have?</label>
-                            <span class="calc-driver-count" id="calcDriverCount">10</span>
-                        </div>
-                        <input type="range" id="driverSlider" class="calc-slider" min="1" max="100" value="10" step="1">
-                        <div class="calc-slider-labels">
-                            <span>1</span>
-                            <span>25</span>
-                            <span>50</span>
-                            <span>75</span>
-                            <span>100+</span>
-                        </div>
-                    </div>
-
-                    <div class="calc-result">
-                        <div class="calc-price-display">
-                            <span class="calc-price-label">Your price</span>
-                            <div class="calc-price-main">
-                                <span class="calc-currency">$</span>
-                                <span class="calc-amount" id="calcAmount">199</span>
-                                <span class="calc-period" id="calcPeriod">/month</span>
-                            </div>
-                            <span class="calc-avg-driver" id="calcAvgDriver">$19.90 avg cost per driver</span>
-                        </div>
-
-                        <div class="calc-breakdown" id="calcBreakdown">
-                            <div class="calc-breakdown-row">
-                                <span id="calcBaseLabel">Base fee (includes 10 drivers)</span>
-                                <span id="calcBase">$199</span>
-                            </div>
-                            <div class="calc-breakdown-row" id="calcExtraRow" style="display: none;">
-                                <span id="calcExtraLabel">0 additional drivers</span>
-                                <span id="calcExtraAmount">$0</span>
-                            </div>
-                            <div class="calc-breakdown-row calc-breakdown-total">
-                                <span>Total</span>
-                                <span id="calcTotal">$199/month</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Features for selected tier -->
-                    <div class="calc-features" id="calcFeatures">
-                        <h4>What's included:</h4>
-                        <ul id="calcFeatureList"></ul>
-                    </div>
-
-                    <a href="#subscribe" class="btn btn-primary btn-lg btn-block calc-cta">Get Started</a>
-                    <p class="pricing-note" style="margin-top: 1rem;">101+ drivers? <a href="mailto:info@compliancenation.net" style="color: var(--primary); text-decoration: underline;">Contact us</a> for custom Enterprise pricing.</p>
-                </div>
-
-                <!-- Right: ROI Comparison -->
-                <div class="calc-roi">
-                    <div class="roi-header">
-                        <span class="roi-icon">💰</span>
-                        <h3>Your Savings</h3>
-                        <p>See how Compliance Nation compares to hiring a Safety &amp; Compliance Manager</p>
-                    </div>
-
-                    <div class="roi-comparison">
-                        <div class="roi-row roi-row-them">
-                            <div class="roi-row-label">
-                                <span class="roi-dot roi-dot-red"></span>
-                                Hiring a Safety Manager
-                            </div>
-                            <div class="roi-row-value" id="roiManagerCost">$55,000 – $75,000/yr</div>
-                        </div>
-                        <div class="roi-row roi-row-us">
-                            <div class="roi-row-label">
-                                <span class="roi-dot roi-dot-green"></span>
-                                Compliance Nation
-                            </div>
-                            <div class="roi-row-value roi-value-green" id="roiOurCost">$2,388/yr</div>
-                        </div>
-                    </div>
-
-                    <div class="roi-savings-box">
-                        <span class="roi-savings-label">Your estimated annual savings</span>
-                        <span class="roi-savings-amount" id="roiSavings">$52,612 – $72,612</span>
-                    </div>
-
-                    <div class="roi-bar-section">
-                        <div class="roi-bar-label">Compliance Nation handles <strong id="roiPercent">80%</strong> of a Safety Manager's workload</div>
-                        <div class="roi-bar-track">
-                            <div class="roi-bar-fill" id="roiBarFill" style="width: 80%;">
-                                <span>80%</span>
-                            </div>
-                        </div>
-                        <div class="roi-bar-details">
-                            <div class="roi-detail">
-                                <span class="roi-detail-icon">🤖</span>
-                                <span>Automated by CN</span>
-                            </div>
-                            <div class="roi-detail roi-detail-manual">
-                                <span class="roi-detail-icon">👤</span>
-                                <span>Still needs a person</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <ul class="roi-tasks">
-                        <li class="roi-task-auto"><span class="check">✓</span> Driver onboarding & file building</li>
-                        <li class="roi-task-auto"><span class="check">✓</span> Drug & alcohol testing management</li>
-                        <li class="roi-task-auto"><span class="check">✓</span> Driving record checks & monitoring</li>
-                        <li class="roi-task-auto"><span class="check">✓</span> Deadline tracking & expiration alerts</li>
-                        <li class="roi-task-auto"><span class="check">✓</span> Audit preparation & record keeping</li>
-                        <li class="roi-task-auto"><span class="check">✓</span> FMCSA Clearinghouse queries</li>
-                        <li class="roi-task-manual"><span class="x-mark">—</span> Ride-alongs & in-person training</li>
-                        <li class="roi-task-manual"><span class="x-mark">—</span> Accident investigation on-scene</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Subscribe / CTA Section -->
+    <!-- ── Early Access Form ───────────────────────────────────────── -->
     <section class="subscribe" id="subscribe">
         <div class="container">
             <div class="subscribe-card">
-                <div class="subscribe-glow"></div>
-                <div class="subscribe-content">
-                    <h2 class="subscribe-title">Get early access to <span class="gradient-text">Compliance Nation</span></h2>
-                    <p class="subscribe-subtitle">Be the first to know when we launch. Early access members get locked-in pricing and priority onboarding.</p>
-                    <form id="subscribeForm" class="subscribe-form" action="https://formspree.io/f/xyzgobla" method="POST">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text" name="name" id="subscribeName" placeholder="Your name" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" name="email" id="subscribeEmail" placeholder="you@company.com" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="company" id="subscribeCompany" placeholder="Company name (optional)">
-                            </div>
+                <h2 class="subscribe-title">Get early access to <span class="text-blue">Compliance Nation</span></h2>
+                <p class="subscribe-subtitle">Be the first to know when we launch. Early access members get locked-in pricing and priority onboarding.</p>
+                <form id="subscribeForm" class="subscribe-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="name" id="subscribeName" placeholder="Your name" required>
                         </div>
-                        <div class="form-row form-row-extras">
-                            <div class="form-group">
-                                <select name="fleet_size" id="subscribeFleet">
-                                    <option value="" disabled selected>Fleet size</option>
-                                    <option value="1-10">1 – 10 trucks</option>
-                                    <option value="11-25">11 – 25 trucks</option>
-                                    <option value="26-50">26 – 50 trucks</option>
-                                    <option value="51-100">51 – 100 trucks</option>
-                                    <option value="100+">100+ trucks</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <input type="email" name="email" id="subscribeEmail" placeholder="you@company.com" required>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg btn-submit" id="subscribeBtn">
-                            <span class="btn-text">Get Early Access</span>
-                            <span class="btn-loading" style="display:none;">
-                                <svg class="spinner" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="50" stroke-dashoffset="35"><animateTransform attributeName="transform" type="rotate" from="0 10 10" to="360 10 10" dur="0.8s" repeatCount="indefinite"/></circle></svg>
-                                Submitting...
-                            </span>
-                        </button>
-                    </form>
-                    <div class="subscribe-success" id="subscribeSuccess" style="display:none;">
-                        <div class="success-icon">🎉</div>
-                        <h3>You're on the list!</h3>
-                        <p>We'll reach out soon with your early access details.</p>
+                        <div class="form-group">
+                            <input type="text" name="company" id="subscribeCompany" placeholder="Company name (optional)">
+                        </div>
                     </div>
-                    <p class="form-disclaimer">No spam, ever. We'll only email you about launch updates.</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <select name="fleet_size" id="subscribeFleet">
+                                <option value="" disabled selected>Fleet size</option>
+                                <option value="1-10">1 – 10 drivers</option>
+                                <option value="11-25">11 – 25 drivers</option>
+                                <option value="26-50">26 – 50 drivers</option>
+                                <option value="51-100">51 – 100 drivers</option>
+                                <option value="100+">100+ drivers</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit" id="subscribeBtn">
+                        <span class="btn-text">Get Early Access</span>
+                        <span class="btn-loading" style="display:none;">Submitting...</span>
+                    </button>
+                </form>
+                <div class="subscribe-success" id="subscribeSuccess" style="display:none;">
+                    <div class="success-icon">🎉</div>
+                    <h3>You're on the list!</h3>
+                    <p>We'll reach out soon with your early access details.</p>
                 </div>
+                <p class="form-disclaimer">No spam, ever. We'll only email you about launch updates.</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ── Footer ──────────────────────────────────────────────────── -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="#" class="logo">
-                        <span class="logo-icon">🛡️</span>
-                        <span class="logo-text">Compliance<span class="logo-accent">Nation</span></span>
+                        <svg class="logo-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                        <span class="footer-logo-text">Compliance Nation</span>
                     </a>
-                    <p class="footer-desc">Your AI-powered safety and compliance manager for FMCSA-regulated carriers.</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Product</h4>
                     <a href="#features">Features</a>
-                    <a href="#how-it-works">How It Works</a>
                     <a href="#pricing">Pricing</a>
                     <a href="#subscribe">Early Access</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Compliance</h4>
-                    <a href="#">Part 391 – Qualifications</a>
-                    <a href="#">Part 382 – Drug Testing</a>
-                    <a href="#">Part 383 – CDL Standards</a>
-                    <a href="#">Part 390 – General</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Company</h4>
-                    <a href="mailto:info@compliancenation.net">Contact Us</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
                 </div>
             </div>
             <div class="footer-bottom">

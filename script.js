@@ -1,349 +1,352 @@
-// ===== NAVBAR SCROLL EFFECT =====
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-});
+/* ═══════════════════════════════════════════════════════════════
+   Compliance Nation Landing Page — Script
+   Pricing Engine + ROI Calculator + Form Handler
+   ═══════════════════════════════════════════════════════════════ */
 
-// ===== MOBILE MENU =====
-const mobileToggle = document.getElementById('mobileToggle');
-const navLinks = document.getElementById('navLinks');
-mobileToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-});
-// Close mobile menu on link click
-navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => navLinks.classList.remove('open'));
-});
+// ── Pricing Tiers (mirrors prisma/seed-tiers.ts exactly) ─────────
 
-// ===== COUNTER ANIMATION =====
-function animateCounter(el, target) {
-    const duration = 1500;
-    const start = performance.now();
-    const from = 0;
+const CONSORTIUM_TIERS = [
+    { minDrivers: 1,  maxDrivers: 10,  basePriceInCents: 20000, perDriverInCents: 0 },
+    { minDrivers: 11, maxDrivers: 20,  basePriceInCents: 0,     perDriverInCents: 2000 },
+    { minDrivers: 21, maxDrivers: 30,  basePriceInCents: 0,     perDriverInCents: 1800 },
+    { minDrivers: 31, maxDrivers: 50,  basePriceInCents: 0,     perDriverInCents: 1500 },
+    { minDrivers: 51, maxDrivers: 100, basePriceInCents: 0,     perDriverInCents: 1200 },
+];
 
-    function tick(now) {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        // ease out cubic
-        const ease = 1 - Math.pow(1 - progress, 3);
-        const value = Math.round(from + (target - from) * ease);
-        el.textContent = value;
-        if (progress < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-}
+const CORE_TIERS = [
+    { minDrivers: 1,  maxDrivers: 10,  basePriceInCents: 19900, perDriverInCents: 0 },
+    { minDrivers: 11, maxDrivers: 20,  basePriceInCents: 0,     perDriverInCents: 2000 },
+    { minDrivers: 21, maxDrivers: 30,  basePriceInCents: 0,     perDriverInCents: 1800 },
+    { minDrivers: 31, maxDrivers: 50,  basePriceInCents: 0,     perDriverInCents: 1500 },
+    { minDrivers: 51, maxDrivers: 100, basePriceInCents: 0,     perDriverInCents: 1200 },
+];
 
-// Observe counters
-const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const el = entry.target;
-            const target = parseInt(el.dataset.target, 10);
-            if (target) animateCounter(el, target);
-            counterObserver.unobserve(el);
-        }
-    });
-}, { threshold: 0.5 });
+const PREMIUM_TIERS = [
+    { minDrivers: 1,  maxDrivers: 5,   basePriceInCents: 29900, perDriverInCents: 0 },
+    { minDrivers: 6,  maxDrivers: 10,  basePriceInCents: 0,     perDriverInCents: 4700 },
+    { minDrivers: 11, maxDrivers: 20,  basePriceInCents: 0,     perDriverInCents: 4000 },
+    { minDrivers: 21, maxDrivers: 30,  basePriceInCents: 0,     perDriverInCents: 3500 },
+    { minDrivers: 31, maxDrivers: 50,  basePriceInCents: 0,     perDriverInCents: 3000 },
+    { minDrivers: 51, maxDrivers: 100, basePriceInCents: 0,     perDriverInCents: 2500 },
+];
 
-document.querySelectorAll('[data-target]').forEach(el => {
-    counterObserver.observe(el);
-});
+// ── Plan Configs ──────────────────────────────────────────────────
 
-// ===== WORKFLOW STEP ANIMATION =====
-const workflowSteps = document.querySelectorAll('.workflow-step');
-const workflowProgress = document.getElementById('workflowProgress');
-let currentStep = 0;
-
-function activateWorkflowStep(index) {
-    workflowSteps.forEach((step, i) => {
-        step.classList.toggle('active', i <= index);
-    });
-    const progressPercent = (index / (workflowSteps.length - 1)) * 100;
-    if (workflowProgress) {
-        workflowProgress.style.height = progressPercent + '%';
-    }
-}
-
-// Auto-cycle through steps
-let workflowInterval;
-const workflowObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            currentStep = 0;
-            activateWorkflowStep(0);
-            workflowInterval = setInterval(() => {
-                currentStep = (currentStep + 1) % workflowSteps.length;
-                activateWorkflowStep(currentStep);
-            }, 2000);
-            workflowObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.3 });
-
-const workflowSection = document.getElementById('how-it-works');
-if (workflowSection) {
-    workflowObserver.observe(workflowSection);
-}
-
-// ===== SCROLL REVEAL =====
-const revealElements = document.querySelectorAll(
-    '.feature-card, .comparison-card, .pricing-card, .step-content, .subscribe-card'
-);
-
-revealElements.forEach(el => el.classList.add('reveal'));
-
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-revealElements.forEach(el => revealObserver.observe(el));
-
-// ===== SUBSCRIBE FORM =====
-const form = document.getElementById('subscribeForm');
-const submitBtn = document.getElementById('subscribeBtn');
-const successEl = document.getElementById('subscribeSuccess');
-
-if (form) {
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const btnText = submitBtn.querySelector('.btn-text');
-        const btnLoading = submitBtn.querySelector('.btn-loading');
-        
-        // Show loading state
-        btnText.style.display = 'none';
-        btnLoading.style.display = 'inline-flex';
-        submitBtn.disabled = true;
-
-        try {
-            const formData = new FormData(form);
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-                form.style.display = 'none';
-                successEl.style.display = 'block';
-                document.querySelector('.form-disclaimer').style.display = 'none';
-            } else {
-                throw new Error('Form submission failed');
-            }
-        } catch (err) {
-            // Fallback: still show success since we don't have formspree configured yet
-            // In production, replace with actual error handling
-            form.style.display = 'none';
-            successEl.style.display = 'block';
-            document.querySelector('.form-disclaimer').style.display = 'none';
-        }
-    });
-}
-
-// ===== SMOOTH SCROLL FOR CTA BUTTONS =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    });
-});
-
-// ===== PRICING CALCULATOR =====
-const TIERS = {
-    consortium: {
-        name: 'Consortium',
-        period: 'year',
-        basePriceCents: 20000, // $200/year
-        baseDrivers: 10,
-        tiers: [
-            { min: 1, max: 10, perDriverCents: 0 },      // included in base
-            { min: 11, max: 20, perDriverCents: 2000 },   // $20/driver/yr
-            { min: 21, max: 30, perDriverCents: 1800 },   // $18/driver/yr
-            { min: 31, max: 50, perDriverCents: 1500 },   // $15/driver/yr
-            { min: 51, max: 100, perDriverCents: 1200 },  // $12/driver/yr
+const PLAN_CONFIGS = [
+    {
+        key: "consortium",
+        name: "Consortium",
+        subtitle: "Best for small fleets needing drug & alcohol compliance only",
+        tiers: CONSORTIUM_TIERS,
+        popular: false,
+        isAnnual: true,
+        highlights: [
+            "Consortium roster management",
+            "Random selection pool generator",
+            "Quarterly compliance tracking",
+            "Basic driver onboarding",
         ],
-        features: [
-            'Random drug & alcohol testing pool',
-            'Certificate of enrollment',
-            'Company drug & alcohol policy',
-            'Lab coordination & record keeping',
-            'DOT-compliant random selections',
-            'Test result record management',
-        ]
+        roiHeadline: "Consortium simplifies drug & alcohol compliance",
     },
-    core: {
-        name: 'Core Compliance',
-        period: 'month',
-        basePriceCents: 19900, // $199/month
-        baseDrivers: 10,
-        tiers: [
-            { min: 1, max: 10, perDriverCents: 0 },
-            { min: 11, max: 20, perDriverCents: 2000 },   // $20/driver/mo
-            { min: 21, max: 30, perDriverCents: 1800 },   // $18/driver/mo
-            { min: 31, max: 50, perDriverCents: 1500 },   // $15/driver/mo
-            { min: 51, max: 100, perDriverCents: 1200 },  // $12/driver/mo
+    {
+        key: "core",
+        name: "Core Compliance",
+        subtitle: "Best for growing fleets replacing manual compliance",
+        tiers: CORE_TIERS,
+        popular: true,
+        isAnnual: false,
+        highlights: [
+            "Everything in Consortium",
+            "Complete DQ file management",
+            "Vehicle file management",
+            "Annual MVR & Clearinghouse pulls",
+            "5 legacy driver imports included",
+            "ELP testing (5 included, then per-test)",
         ],
-        features: [
-            'Everything in Consortium',
-            'Automated driver onboarding',
-            'Driver qualification file builder',
-            'Driving record checks on hire',
-            'FMCSA Clearinghouse queries',
-            'Deadline tracking & expiration alerts',
-            'Vehicle maintenance file tracking',
-        ]
+        roiHeadline: "Core Compliance replaces manual compliance work",
     },
-    premium: {
-        name: 'Premium',
-        period: 'month',
-        basePriceCents: 29900, // $299/month
-        baseDrivers: 5,
-        tiers: [
-            { min: 1, max: 5, perDriverCents: 0 },       // included in base
-            { min: 6, max: 10, perDriverCents: 4700 },    // $47/driver/mo
-            { min: 11, max: 20, perDriverCents: 4000 },   // $40/driver/mo
-            { min: 21, max: 30, perDriverCents: 3500 },   // $35/driver/mo
-            { min: 31, max: 50, perDriverCents: 3000 },   // $30/driver/mo
-            { min: 51, max: 100, perDriverCents: 2500 },  // $25/driver/mo
+    {
+        key: "premium",
+        name: "Premium",
+        subtitle: "Best for high-volume fleets needing full automation",
+        tiers: PREMIUM_TIERS,
+        popular: false,
+        isAnnual: false,
+        highlights: [
+            "Everything in Core Compliance",
+            "Continuous MVR monitoring",
+            "Clearinghouse queries included",
+            "FMCSA SAFER Sync",
+            "CPDP DataQs crash challenge tool",
+            "Priority support",
         ],
-        features: [
-            'Everything in Core Compliance',
-            'Continuous driving record monitoring',
-            'Insurance broker integration',
-            'One-click DOT audit export',
-            'Reasonable suspicion training (free)',
-            'AI compliance assistant',
-            'Priority support',
-        ]
-    }
-};
+        roiHeadline: "Premium automates high-volume compliance operations",
+    },
+];
 
-const SAFETY_MANAGER_LOW = 55000;
-const SAFETY_MANAGER_HIGH = 75000;
+// ── ROI Constants ─────────────────────────────────────────────────
 
-let currentTier = 'core';
-let currentDrivers = 10;
+const AVG_COMPLIANCE_MANAGER = 85000;
+const AVG_SAFETY_MANAGER = 70000;
+const AUTOMATION_FACTOR = 0.7;
+const HOURS_SAVED_PER_DRIVER = 0.4;
 
-function calculatePrice(tierKey, drivers) {
-    const tier = TIERS[tierKey];
-    const baseDrivers = tier.baseDrivers;
-    let totalCents = tier.basePriceCents;
-    let extraDriverCost = 0;
-    const extraDrivers = Math.max(0, drivers - baseDrivers);
+// ── Graduated Price Calculator ────────────────────────────────────
 
-    if (extraDrivers > 0) {
-        let remaining = extraDrivers;
-        for (let i = 1; i < tier.tiers.length; i++) {
-            const band = tier.tiers[i];
-            const bandSize = band.max - band.min + 1;
-            const driversInBand = Math.min(remaining, bandSize);
-            if (driversInBand <= 0) break;
-            extraDriverCost += driversInBand * band.perDriverCents;
-            remaining -= driversInBand;
+function calculateGraduatedPrice(tiers, driverCount) {
+    let totalCents = 0;
+    for (const tier of tiers) {
+        if (driverCount < tier.minDrivers) continue;
+        const driversInBracket = Math.min(driverCount, tier.maxDrivers || driverCount) - tier.minDrivers + 1;
+        if (driversInBracket <= 0) continue;
+        if (tier.basePriceInCents > 0) {
+            totalCents += tier.basePriceInCents;
+        } else {
+            totalCents += driversInBracket * tier.perDriverInCents;
         }
     }
-
-    totalCents += extraDriverCost;
-    return {
-        total: totalCents,
-        base: tier.basePriceCents,
-        extra: extraDriverCost,
-        extraDrivers: extraDrivers,
-        baseDrivers: baseDrivers,
-        period: tier.period,
-    };
+    return totalCents;
 }
 
-function formatDollars(cents) {
-    return '$' + (cents / 100).toLocaleString('en-US', { maximumFractionDigits: 0 });
-}
+// ── State ─────────────────────────────────────────────────────────
 
-function updateCalc() {
-    const tier = TIERS[currentTier];
-    const price = calculatePrice(currentTier, currentDrivers);
+let selectedPlan = "core";
+let driverCount = 10;
+
+// ── DOM References ────────────────────────────────────────────────
+
+const slider = document.getElementById("driverSlider");
+const countEl = document.getElementById("driverCount");
+const planTabsEl = document.getElementById("planTabs");
+const planCardsEl = document.getElementById("planCards");
+const roiTitle = document.getElementById("roiTitle");
+const roiLaborCost = document.getElementById("roiLaborCost");
+const roiAnnualCost = document.getElementById("roiAnnualCost");
+const roiSavings = document.getElementById("roiSavings");
+const roiHours = document.getElementById("roiHours");
+const roiPayback = document.getElementById("roiPayback");
+const roiFraming = document.getElementById("roiFraming");
+const roiLaborInline = document.getElementById("roiLaborInline");
+const roiMonthlyInline = document.getElementById("roiMonthlyInline");
+
+// ── Format Helpers ────────────────────────────────────────────────
+
+function fmt(n) { return Math.round(n).toLocaleString("en-US"); }
+function fmtDollars(cents) { return "$" + fmt(cents / 100); }
+
+// ── Render ────────────────────────────────────────────────────────
+
+function update() {
+    const isOverCap = driverCount > 50;
+    const displayCount = isOverCap ? 50 : driverCount;
 
     // Update driver count display
-    document.getElementById('calcDriverCount').textContent = currentDrivers;
+    countEl.textContent = isOverCap ? "50+" : driverCount;
+    countEl.classList.toggle("over-cap", isOverCap);
 
-    // Update price display
-    document.getElementById('calcAmount').textContent = (price.total / 100).toLocaleString('en-US', { maximumFractionDigits: 0 });
-    document.getElementById('calcPeriod').textContent = '/' + price.period;
+    // Update plan tabs
+    planTabsEl.querySelectorAll(".plan-tab").forEach(tab => {
+        tab.classList.toggle("active", tab.dataset.plan === selectedPlan);
+    });
 
-    // Average per driver
-    const avgPerDriver = (price.total / 100 / currentDrivers).toFixed(2);
-    document.getElementById('calcAvgDriver').textContent = '$' + avgPerDriver + ' avg cost per driver';
+    // Calculate prices for all plans
+    const prices = PLAN_CONFIGS.map(plan => ({
+        key: plan.key,
+        totalCents: calculateGraduatedPrice(plan.tiers, displayCount),
+    }));
 
-    // Breakdown
-    document.getElementById('calcBaseLabel').textContent = 'Base fee (includes ' + price.baseDrivers + ' drivers)';
-    document.getElementById('calcBase').textContent = formatDollars(price.base);
-    const extraRow = document.getElementById('calcExtraRow');
-    if (price.extraDrivers > 0) {
-        extraRow.style.display = 'flex';
-        document.getElementById('calcExtraLabel').textContent = price.extraDrivers + ' additional driver' + (price.extraDrivers > 1 ? 's' : '');
-        document.getElementById('calcExtraAmount').textContent = formatDollars(price.extra);
-    } else {
-        extraRow.style.display = 'none';
-    }
-    document.getElementById('calcTotal').textContent = formatDollars(price.total) + '/' + price.period;
+    // Find selected plan
+    const selConfig = PLAN_CONFIGS.find(p => p.key === selectedPlan);
+    const selPrice = prices.find(p => p.key === selectedPlan);
+    const selMonthly = selPrice.totalCents / 100;
+    const selAnnual = selConfig.isAnnual ? selMonthly : selMonthly * 12;
 
-    // Feature list
-    const featureList = document.getElementById('calcFeatureList');
-    featureList.innerHTML = tier.features.map(f => '<li>' + f + '</li>').join('');
+    // ROI calculations
+    const estimatedLabor = Math.round((AVG_COMPLIANCE_MANAGER + AVG_SAFETY_MANAGER) * AUTOMATION_FACTOR);
+    const savings = Math.max(0, estimatedLabor - selAnnual);
+    const hoursSaved = Math.round(displayCount * HOURS_SAVED_PER_DRIVER);
+    const monthlySav = savings / 12;
+    const paybackDays = monthlySav > 0 ? Math.max(1, Math.round((selAnnual / 12) / (monthlySav / 30))) : 0;
 
-    // ROI Calculation
-    let annualCost;
-    if (price.period === 'year') {
-        annualCost = price.total / 100;
-    } else {
-        annualCost = (price.total / 100) * 12;
-    }
+    // Update ROI section
+    roiTitle.textContent = selConfig.roiHeadline;
+    roiLaborCost.textContent = "$" + fmt(estimatedLabor);
+    roiAnnualCost.textContent = "$" + fmt(Math.round(selAnnual));
+    roiSavings.textContent = "$" + fmt(Math.round(savings));
+    roiHours.textContent = hoursSaved + " hrs/week";
+    roiPayback.textContent = paybackDays + " days";
+    roiLaborInline.textContent = "$" + fmt(estimatedLabor) + " employee";
+    roiMonthlyInline.textContent = "$" + fmt(Math.round(selAnnual / 12)) + "/month";
 
-    document.getElementById('roiOurCost').textContent = '$' + annualCost.toLocaleString('en-US', { maximumFractionDigits: 0 }) + '/yr';
+    // Render plan cards
+    let cardsHTML = "";
+    PLAN_CONFIGS.forEach((plan, i) => {
+        const price = prices[i];
+        const total = price.totalCents / 100;
+        const perDriver = total / displayCount;
+        const isSelected = selectedPlan === plan.key;
+        const period = plan.isAnnual ? "/yr" : "/mo";
 
-    const savingsLow = SAFETY_MANAGER_LOW - annualCost;
-    const savingsHigh = SAFETY_MANAGER_HIGH - annualCost;
+        let classes = "plan-card";
+        if (plan.key === "consortium") classes += " is-consortium";
+        if (plan.popular) classes += " is-popular";
+        if (isSelected) classes += " selected";
 
-    if (savingsLow > 0) {
-        document.getElementById('roiSavings').textContent =
-            '$' + savingsLow.toLocaleString('en-US', { maximumFractionDigits: 0 }) +
-            ' – $' + savingsHigh.toLocaleString('en-US', { maximumFractionDigits: 0 });
-    } else {
-        document.getElementById('roiSavings').textContent =
-            'Up to $' + savingsHigh.toLocaleString('en-US', { maximumFractionDigits: 0 });
-    }
+        let priceHTML = "";
+        if (isOverCap) {
+            priceHTML = `
+                <div class="plan-card-contact">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <a href="mailto:sales@compliancenation.io">Contact Sales</a>
+                </div>
+            `;
+        } else {
+            priceHTML = `
+                <p class="plan-card-per-driver">$${perDriver.toFixed(2)} per driver${period}</p>
+                <div class="plan-card-total">
+                    <span class="plan-card-amount">$${fmt(total)}</span>
+                    <span class="plan-card-period">${period}</span>
+                </div>
+                <p class="plan-card-for">for ${driverCount} driver${driverCount !== 1 ? "s" : ""}</p>
+            `;
+        }
 
-    // Update slider fill
-    const slider = document.getElementById('driverSlider');
-    const percent = ((currentDrivers - 1) / 99) * 100;
-    slider.style.background = 'linear-gradient(to right, #3B82F6 0%, #06B6D4 ' + percent + '%, #1A2744 ' + percent + '%)';
-}
+        const timeBadge = plan.popular ? `
+            <div class="plan-card-time-badge">
+                <p>⏱ Saves 15–25 admin hours/week</p>
+            </div>
+        ` : "";
 
-// Tier tab clicks
-document.getElementById('calcTierTabs').addEventListener('click', function(e) {
-    const tab = e.target.closest('.calc-tier-tab');
-    if (!tab) return;
-    currentTier = tab.dataset.tier;
-    document.querySelectorAll('.calc-tier-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    updateCalc();
-});
+        const badge = plan.popular ? `<div class="plan-card-badge">Most Popular</div>` : "";
 
-// Slider input
-const driverSlider = document.getElementById('driverSlider');
-if (driverSlider) {
-    driverSlider.addEventListener('input', function() {
-        currentDrivers = parseInt(this.value, 10);
-        updateCalc();
+        const ctaClass = plan.popular ? "plan-card-cta-primary" : "plan-card-cta-secondary";
+        const ctaText = isOverCap ? "Contact Sales" : "Get Started";
+        const ctaHref = isOverCap ? "mailto:sales@compliancenation.io" : "#subscribe";
+
+        const featuresHTML = plan.highlights.map(h =>
+            `<li><span class="plan-card-check">✓</span><span>${h}</span></li>`
+        ).join("");
+
+        cardsHTML += `
+            <div class="${classes}" data-plan="${plan.key}">
+                ${badge}
+                <div>
+                    <div class="plan-card-name">${plan.name}</div>
+                    <p class="plan-card-subtitle">${plan.subtitle}</p>
+                </div>
+                <div class="plan-card-price">${priceHTML}</div>
+                ${timeBadge}
+                <ul class="plan-card-features">${featuresHTML}</ul>
+                <a href="${ctaHref}" class="plan-card-cta ${ctaClass}">${ctaText}</a>
+            </div>
+        `;
+    });
+    planCardsEl.innerHTML = cardsHTML;
+
+    // Add click handlers to plan cards
+    planCardsEl.querySelectorAll(".plan-card").forEach(card => {
+        card.addEventListener("click", (e) => {
+            if (e.target.closest(".plan-card-cta")) return;
+            selectedPlan = card.dataset.plan;
+            update();
+        });
     });
 }
 
-// Initialize
-updateCalc();
+// ── Event Listeners ───────────────────────────────────────────────
+
+slider.addEventListener("input", () => {
+    driverCount = parseInt(slider.value);
+    update();
+});
+
+planTabsEl.addEventListener("click", (e) => {
+    const tab = e.target.closest(".plan-tab");
+    if (!tab) return;
+    selectedPlan = tab.dataset.plan;
+    update();
+});
+
+// ── Form Submission → Google Sheets ───────────────────────────────
+//
+// SETUP INSTRUCTIONS:
+// 1. Create a Google Sheet (any name)
+// 2. Open Extensions → Apps Script
+// 3. Paste this code into Code.gs:
+//
+//    function doPost(e) {
+//      var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+//      var data = JSON.parse(e.postData.contents);
+//      sheet.appendRow([
+//        new Date(),
+//        data.name || '',
+//        data.email || '',
+//        data.company || '',
+//        data.fleet_size || ''
+//      ]);
+//      return ContentService
+//        .createTextOutput(JSON.stringify({ result: 'success' }))
+//        .setMimeType(ContentService.MimeType.JSON);
+//    }
+//
+// 4. Deploy → New Deployment → Web App
+//    - Execute as: Me
+//    - Who has access: Anyone
+// 5. Copy the Web App URL and paste it below:
+
+const GOOGLE_SHEET_URL = ""; // ← Paste your Google Apps Script Web App URL here
+
+const form = document.getElementById("subscribeForm");
+const submitBtn = document.getElementById("subscribeBtn");
+const successEl = document.getElementById("subscribeSuccess");
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const btnText = submitBtn.querySelector(".btn-text");
+    const btnLoading = submitBtn.querySelector(".btn-loading");
+
+    const payload = {
+        name: document.getElementById("subscribeName").value,
+        email: document.getElementById("subscribeEmail").value,
+        company: document.getElementById("subscribeCompany").value,
+        fleet_size: document.getElementById("subscribeFleet").value,
+        timestamp: new Date().toISOString(),
+    };
+
+    // Show loading
+    btnText.style.display = "none";
+    btnLoading.style.display = "inline";
+    submitBtn.disabled = true;
+
+    try {
+        if (GOOGLE_SHEET_URL) {
+            await fetch(GOOGLE_SHEET_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+        }
+
+        // Show success
+        form.style.display = "none";
+        successEl.style.display = "block";
+    } catch (err) {
+        // Still show success (no-cors won't return readable response)
+        form.style.display = "none";
+        successEl.style.display = "block";
+    }
+});
+
+// ── Navbar scroll effect ──────────────────────────────────────────
+
+const navbar = document.getElementById("navbar");
+window.addEventListener("scroll", () => {
+    navbar.style.boxShadow = window.scrollY > 10
+        ? "0 1px 3px rgba(0,0,0,0.08)"
+        : "none";
+});
+
+// ── Init ──────────────────────────────────────────────────────────
+update();
