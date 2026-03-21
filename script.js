@@ -294,7 +294,7 @@ planTabsEl.addEventListener("click", (e) => {
 //    - Who has access: Anyone
 // 5. Copy the Web App URL and paste it below:
 
-const GOOGLE_SHEET_URL = ""; // ← Paste your Google Apps Script Web App URL here
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyjcunBvmqmaINlHIFDc_t3_X_O79LUl-HpV2upjDGz-LAzgQ8AlS3pSyoR9GU9n7Z5/exec";
 
 const form = document.getElementById("subscribeForm");
 const submitBtn = document.getElementById("subscribeBtn");
@@ -324,7 +324,7 @@ form.addEventListener("submit", async (e) => {
             await fetch(GOOGLE_SHEET_URL, {
                 method: "POST",
                 mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "text/plain" },
                 body: JSON.stringify(payload),
             });
         }
