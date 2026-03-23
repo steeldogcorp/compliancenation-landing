@@ -164,7 +164,10 @@
             <div class="plan-tabs" id="planTabs">
                 <button class="plan-tab" data-plan="consortium">Consortium</button>
                 <button class="plan-tab active" data-plan="core">Core Compliance</button>
-                <button class="plan-tab" data-plan="premium">Premium</button>
+                <button class="plan-tab" data-plan="command">Compliance Command</button>
+            </div>
+            <div class="killer-upgrade-line" style="text-align:center; font-size:14px; color:#1d4ed8; font-weight:500; background:#eff6ff; padding:8px 24px; border-radius:999px; max-width:fit-content; margin: 0 auto 32px auto; border:1px solid #dbeafe; line-height:1.2;">
+                <strong>Core</strong> keeps you compliant. <strong>Compliance Command</strong> runs your compliance operation.
             </div>
 
             <!-- Driver Count Selector -->
@@ -193,7 +196,7 @@
                         <div class="roi-box roi-box-red">
                             <p class="roi-box-label">Without Automation</p>
                             <p class="roi-box-value" id="roiLaborCost">$108,500</p>
-                            <p class="roi-box-sub">per year in labor</p>
+                            <p class="roi-box-sub" id="roiLaborSub">per year in labor</p>
                         </div>
                         <div class="roi-box roi-box-neutral">
                             <p class="roi-box-label">With Compliance Nation</p>
@@ -202,14 +205,13 @@
                             <p class="roi-box-note">Pricing includes base plan + scaled per-driver rates</p>
                         </div>
                         <div class="roi-box roi-box-green">
-                            <p class="roi-box-label">Your Savings</p>
+                            <p class="roi-box-label" id="roiSavingsLabel">Your Savings</p>
                             <p class="roi-box-value" id="roiSavings">$106,112</p>
                             <p class="roi-box-sub">per year saved</p>
                         </div>
                     </div>
-                    <p class="roi-framing" id="roiFraming">
-                        That's like hiring a <span class="roi-framing-bold" id="roiLaborInline">$108,500 employee</span>
-                        for <span class="roi-framing-green" id="roiMonthlyInline">$199/month</span>
+                    <p class="roi-framing" id="roiFraming" style="color: #64748b; font-weight: 500; font-size: 14px; text-align: center; max-width: 450px; margin: 0 auto;">
+                        Replace manual compliance work and eliminate admin overhead.
                     </p>
                     <div class="roi-divider"></div>
                     <div class="roi-metrics">
@@ -238,10 +240,10 @@
             <!-- Mini Value Bar -->
             <div class="value-bar">
                 <div class="value-bar-item">
-                    <p>Save $56K–$118K/year</p>
+                    <p id="valBar1Text">Save $56K–$118K/year</p>
                 </div>
                 <div class="value-bar-item">
-                    <p>Reduce workload by 60–80%</p>
+                    <p id="valBar2Text">Reduce workload by 60–80%</p>
                 </div>
                 <div class="value-bar-item">
                     <p>Audit-ready 24/7</p>

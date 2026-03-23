@@ -36,7 +36,7 @@ const PLAN_CONFIGS = [
     {
         key: "consortium",
         name: "Consortium",
-        subtitle: "Best for small fleets needing drug & alcohol compliance only",
+        subtitle: "Drug & alcohol compliance without the overhead",
         tiers: CONSORTIUM_TIERS,
         popular: false,
         isAnnual: true,
@@ -46,41 +46,42 @@ const PLAN_CONFIGS = [
             "Quarterly compliance tracking",
             "Basic driver onboarding",
         ],
-        roiHeadline: "Consortium simplifies drug & alcohol compliance",
+        roiHeadline: "Simplify drug & alcohol compliance",
     },
     {
         key: "core",
         name: "Core Compliance",
-        subtitle: "Best for growing fleets replacing manual compliance",
+        subtitle: "Stay compliant without spreadsheets or manual follow-up",
         tiers: CORE_TIERS,
         popular: true,
         isAnnual: false,
         highlights: [
-            "Everything in Consortium",
+            "Driver application + VOE automation",
             "Complete DQ file management",
-            "Vehicle file management",
+            "Vehicle file tracking & alerts",
             "Annual MVR & Clearinghouse pulls",
-            "5 legacy driver imports included",
-            "ELP testing (5 included, then per-test)",
+            "Digital audit-ready compliance files",
+            "Drug & alcohol consortium included",
         ],
-        roiHeadline: "Core Compliance replaces manual compliance work",
+        roiHeadline: "Replace manual compliance work",
     },
     {
-        key: "premium",
-        name: "Premium",
-        subtitle: "Best for high-volume fleets needing full automation",
+        key: "command",
+        name: "Compliance Command",
+        subtitle: "Reduce risk. Reduce workload. Run a better operation.",
         tiers: PREMIUM_TIERS,
         popular: false,
         isAnnual: false,
         highlights: [
             "Everything in Core Compliance",
-            "Continuous MVR monitoring",
-            "Clearinghouse queries included",
-            "FMCSA SAFER Sync",
-            "CPDP DataQs crash challenge tool",
-            "Priority support",
+            "Continuous MVR monitoring (real-time alerts)",
+            "Automated Clearinghouse queries",
+            "Driver document delegation via SMS",
+            "Live crash reporting & test decision engine",
+            "AI safety insights & violation trending",
+            "DataQs crash challenge assistant",
         ],
-        roiHeadline: "Premium automates high-volume compliance operations",
+        roiHeadline: "Prevent costly mistakes and reduce workload",
     },
 ];
 
@@ -89,18 +90,23 @@ const PLAN_CONFIGS = [
 const AVG_COMPLIANCE_MANAGER = 85000;
 const AVG_SAFETY_MANAGER = 70000;
 const AUTOMATION_FACTOR = 0.7;
-const HOURS_SAVED_PER_DRIVER = 0.4;
+const RISK_EVENT_COST = 25000;
+const COMMAND_RISK_REDUCTION = 0.6;
 
 // ── Graduated Price Calculator ────────────────────────────────────
 
 function calculateGraduatedPrice(tiers, driverCount) {
     let totalCents = 0;
+    let baseApplied = false;
     for (const tier of tiers) {
         if (driverCount < tier.minDrivers) continue;
-        const driversInBracket = Math.min(driverCount, tier.maxDrivers || driverCount) - tier.minDrivers + 1;
+        const bracketMax = tier.maxDrivers || driverCount;
+        const driversInBracket = Math.min(driverCount, bracketMax) - tier.minDrivers + 1;
         if (driversInBracket <= 0) continue;
-        if (tier.basePriceInCents > 0) {
+        
+        if (tier.basePriceInCents > 0 && !baseApplied) {
             totalCents += tier.basePriceInCents;
+            baseApplied = true;
         } else {
             totalCents += driversInBracket * tier.perDriverInCents;
         }
@@ -126,8 +132,10 @@ const roiSavings = document.getElementById("roiSavings");
 const roiHours = document.getElementById("roiHours");
 const roiPayback = document.getElementById("roiPayback");
 const roiFraming = document.getElementById("roiFraming");
-const roiLaborInline = document.getElementById("roiLaborInline");
-const roiMonthlyInline = document.getElementById("roiMonthlyInline");
+const roiLaborSub = document.getElementById("roiLaborSub");
+const roiSavingsLabel = document.getElementById("roiSavingsLabel");
+const valBar1Text = document.getElementById("valBar1Text");
+const valBar2Text = document.getElementById("valBar2Text");
 
 // ── Format Helpers ────────────────────────────────────────────────
 
@@ -163,20 +171,34 @@ function update() {
 
     // ROI calculations
     const estimatedLabor = Math.round((AVG_COMPLIANCE_MANAGER + AVG_SAFETY_MANAGER) * AUTOMATION_FACTOR);
-    const savings = Math.max(0, estimatedLabor - selAnnual);
-    const hoursSaved = Math.round(displayCount * HOURS_SAVED_PER_DRIVER);
+    let savings = Math.max(0, estimatedLabor - selAnnual);
+    let riskSavings = 0;
+    if (selectedPlan === "command") {
+        riskSavings = Math.round(RISK_EVENT_COST * COMMAND_RISK_REDUCTION);
+        savings += riskSavings;
+    }
+
+    let hoursSaved;
+    if (selectedPlan === "core") hoursSaved = Math.round(displayCount * 0.4);
+    else if (selectedPlan === "command") hoursSaved = Math.round(displayCount * 0.7);
+    else hoursSaved = Math.round(displayCount * 0.1);
+
     const monthlySav = savings / 12;
     const paybackDays = monthlySav > 0 ? Math.max(1, Math.round((selAnnual / 12) / (monthlySav / 30))) : 0;
 
     // Update ROI section
     roiTitle.textContent = selConfig.roiHeadline;
-    roiLaborCost.textContent = "$" + fmt(estimatedLabor);
+    roiLaborCost.textContent = "$" + fmt(selectedPlan === "command" ? estimatedLabor + RISK_EVENT_COST : estimatedLabor);
+    roiLaborSub.textContent = selectedPlan === "command" ? "labor + $25k risk exposure/yr" : "per year in labor";
     roiAnnualCost.textContent = "$" + fmt(Math.round(selAnnual));
+    roiSavingsLabel.textContent = selectedPlan === "command" ? "Total Impact" : "Your Savings";
     roiSavings.textContent = "$" + fmt(Math.round(savings));
     roiHours.textContent = hoursSaved + " hrs/week";
     roiPayback.textContent = paybackDays + " days";
-    roiLaborInline.textContent = "$" + fmt(estimatedLabor) + " employee";
-    roiMonthlyInline.textContent = "$" + fmt(Math.round(selAnnual / 12)) + "/month";
+    roiFraming.textContent = selectedPlan === "command" ? "Prevent just one violation or suspended-license incident and Compliance Command pays for itself." : "Replace manual compliance work and eliminate admin overhead.";
+    
+    valBar1Text.textContent = selectedPlan === "command" ? "Eliminate $25K+ in risk exposure" : "Save $56K–$118K/year";
+    valBar2Text.textContent = selectedPlan === "command" ? "Automate 85–95% of safety ops" : "Reduce workload by 60–80%";
 
     // Render plan cards
     let cardsHTML = "";
@@ -211,11 +233,20 @@ function update() {
             `;
         }
 
-        const timeBadge = plan.popular ? `
-            <div class="plan-card-time-badge">
-                <p>⏱ Saves 15–25 admin hours/week</p>
-            </div>
-        ` : "";
+        let valueTag = "";
+        if (plan.key === "core") {
+            valueTag = `<div style="background:#eff6ff; border:1px solid #dbeafe; border-radius:8px; padding:8px 12px; margin-bottom:16px; text-align:center;">
+                <p style="font-size:12px; font-weight:600; color:#1d4ed8; margin:0; display:flex; align-items:center; justify-content:center; gap:4px">
+                    <span>💰</span> Saves $56K–$118K/year
+                </p>
+            </div>`;
+        } else if (plan.key === "command") {
+            valueTag = `<div style="background:#eef2ff; border:1px solid #e0e7ff; border-radius:8px; padding:8px 12px; margin-bottom:16px; text-align:center;">
+                <p style="font-size:11.5px; font-weight:600; color:#4338ca; margin:0; display:flex; align-items:center; justify-content:center; gap:4px; white-space:nowrap;">
+                    <span>⚙️</span> Saves 15-25 hrs/wk + reduces risk
+                </p>
+            </div>`;
+        }
 
         const badge = plan.popular ? `<div class="plan-card-badge">Most Popular</div>` : "";
 
@@ -235,7 +266,7 @@ function update() {
                     <p class="plan-card-subtitle">${plan.subtitle}</p>
                 </div>
                 <div class="plan-card-price">${priceHTML}</div>
-                ${timeBadge}
+                ${valueTag}
                 <ul class="plan-card-features">${featuresHTML}</ul>
                 <a href="${ctaHref}" class="plan-card-cta ${ctaClass}">${ctaText}</a>
             </div>
